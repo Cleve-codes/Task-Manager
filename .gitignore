@@ -121,3 +121,12 @@ Icon?
 # package-lock.json
 # yarn.lock
 # composer.lock
+
+# Development and Test Files
+/backend/test-*.php
+/backend/setup-*.php
+test-*.php
+setup-*.php
+
+# Documentation (keep in root)
+# EMAIL_PREFERENCES_GUIDE.md is intentionally tracked
