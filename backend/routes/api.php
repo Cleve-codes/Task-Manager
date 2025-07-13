@@ -3,6 +3,7 @@
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailPreferencesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('tasks', TaskController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/profile', [AuthController::class, 'updateProfile']);
 
     // Additional task-specific routes
     Route::get('/my-tasks', [TaskController::class, 'myTasks']);
     Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus']);
+
+    // Email preferences routes
+    Route::get('/email-preferences', [EmailPreferencesController::class, 'index']);
+    Route::put('/email-preferences', [EmailPreferencesController::class, 'update']);
+
+    // Admin email preferences routes
+    Route::get('/users/{id}/email-preferences', [EmailPreferencesController::class, 'show']);
+    Route::put('/users/{id}/email-preferences', [EmailPreferencesController::class, 'updateUserPreferences']);
+    Route::get('/admin/email-preferences/overview', [EmailPreferencesController::class, 'overview']);
 
     /**
      * @OA\Get(
