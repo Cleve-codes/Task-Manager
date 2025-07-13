@@ -52,6 +52,8 @@ RUN echo '#!/bin/bash' > /start.sh && \
     echo 'php artisan config:cache' >> /start.sh && \
     echo 'php artisan route:cache' >> /start.sh && \
     echo 'php artisan view:cache' >> /start.sh && \
+    echo 'echo "Generating Swagger documentation..."' >> /start.sh && \
+    echo 'php artisan l5-swagger:generate' >> /start.sh && \
     echo 'php artisan migrate --force' >> /start.sh && \
     echo 'chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache' >> /start.sh && \
     echo 'chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache' >> /start.sh && \
