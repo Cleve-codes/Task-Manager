@@ -1,0 +1,56 @@
+{
+  "name": "Task Management API",
+  "description": "Laravel Task Management System API",
+  "keywords": ["laravel", "php", "api", "task-management"],
+  "website": "https://github.com/Cleve-codes/Task-Manager",
+  "repository": "https://github.com/Cleve-codes/Task-Manager",
+  "logo": "",
+  "success_url": "/api/health",
+  "scripts": {
+    "postdeploy": "php artisan migrate --force && php artisan config:cache && php artisan route:cache"
+  },
+  "env": {
+    "APP_NAME": {
+      "description": "Application name",
+      "value": "Task Management API"
+    },
+    "APP_ENV": {
+      "description": "Application environment",
+      "value": "production"
+    },
+    "APP_DEBUG": {
+      "description": "Debug mode",
+      "value": "false"
+    },
+    "APP_KEY": {
+      "description": "Application key (will be generated)",
+      "generator": "secret"
+    },
+    "LOG_CHANNEL": {
+      "description": "Log channel",
+      "value": "stack"
+    },
+    "LOG_LEVEL": {
+      "description": "Log level",
+      "value": "error"
+    },
+    "DB_CONNECTION": {
+      "description": "Database connection",
+      "value": "pgsql"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:mini"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ]
+}
