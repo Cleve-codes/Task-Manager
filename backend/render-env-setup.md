@@ -8,6 +8,7 @@ Go to your Render service dashboard and add/update these environment variables:
 
 ```
 APP_URL=https://task-manager-api-nwrn.onrender.com
+FRONTEND_URL=https://task-manager-lac-tau.vercel.app
 FORCE_HTTPS=true
 L5_SWAGGER_USE_ABSOLUTE_PATH=true
 APP_ENV=production
@@ -26,6 +27,7 @@ APP_DEBUG=false
 ## What These Variables Do:
 
 - `APP_URL`: Sets the correct HTTPS URL for your application
+- `FRONTEND_URL`: Sets the frontend URL for CORS and password reset links
 - `FORCE_HTTPS`: Forces Laravel to generate HTTPS URLs
 - `L5_SWAGGER_USE_ABSOLUTE_PATH`: Makes Swagger use absolute paths for assets
 - `APP_ENV=production`: Sets Laravel to production mode
