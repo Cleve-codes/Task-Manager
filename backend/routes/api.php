@@ -13,22 +13,7 @@ Route::get('/health', function () {
         'status' => 'ok',
         'timestamp' => now(),
         'app' => config('app.name'),
-        'version' => '1.0.1-csrf-fix',
-        'csrf_disabled' => true
-    ]);
-});
-
-// Test route for API functionality
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'API is working correctly!',
-        'csrf_disabled' => 'CSRF protection is disabled for API routes',
-        'timestamp' => now(),
-        'test_endpoints' => [
-            'POST /api/register' => 'Create new user account',
-            'POST /api/login' => 'Login with email/password',
-            'GET /api/user' => 'Get current user (requires auth)',
-        ]
+        'version' => '1.0.0'
     ]);
 });
 
