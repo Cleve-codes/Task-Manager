@@ -4,7 +4,9 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailPreferencesController;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 // Health check route
@@ -15,6 +17,51 @@ Route::get('/health', function () {
         'app' => config('app.name'),
         'version' => '1.0.0'
     ]);
+});
+
+// TEMPORARY ROUTE - REMOVE AFTER CREATING ADMIN USER
+Route::post('/setup-admin', function (Request $request) {
+    // Check if admin already exists
+    $existingAdmin = User::where('role', 'admin')->first();
+
+    if ($existingAdmin) {
+        return response()->json([
+            'message' => 'Admin user already exists',
+            'admin' => [
+                'name' => $existingAdmin->name,
+                'email' => $existingAdmin->email,
+                'role' => $existingAdmin->role
+            ]
+        ], 409);
+    }
+
+    // Get credentials from request or use defaults
+    $name = $request->input('name', 'Admin User');
+    $email = $request->input('email', 'admin@example.com');
+    $password = $request->input('password', 'password');
+
+    // Create admin user
+    $admin = User::create([
+        'name' => $name,
+        'email' => $email,
+        'password' => Hash::make($password),
+        'role' => 'admin',
+        'email_verified_at' => now(),
+    ]);
+
+    return response()->json([
+        'message' => 'Admin user created successfully!',
+        'admin' => [
+            'name' => $admin->name,
+            'email' => $admin->email,
+            'role' => $admin->role
+        ],
+        'credentials' => [
+            'email' => $email,
+            'password' => $password
+        ],
+        'warning' => 'Please change the password after first login and REMOVE this route!'
+    ], 201);
 });
 
 // Public routes (no authentication required)
