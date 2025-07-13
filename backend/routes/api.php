@@ -7,6 +7,16 @@ use App\Http\Controllers\EmailPreferencesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Health check route
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'timestamp' => now(),
+        'app' => config('app.name'),
+        'version' => '1.0.0'
+    ]);
+});
+
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+echo "Starting Laravel application setup..."
+
 # Wait for database to be ready (if using external database)
 echo "Waiting for database connection..."
 
@@ -32,4 +34,5 @@ chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 echo "Laravel application is ready!"
 
 # Start supervisor (which manages nginx and php-fpm)
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+echo "Starting supervisor..."
+exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
