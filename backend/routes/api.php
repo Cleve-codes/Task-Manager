@@ -83,6 +83,50 @@ Route::post('/setup-admin', function (Request $request) {
         $email = $request->input('email', 'admin@example.com');
         $password = $request->input('password', 'password');
 
+        // Check if email already exists (regardless of role)
+        $existingUser = User::where('email', $email)->first();
+
+        if ($existingUser) {
+            // If user exists but is not admin, update them to admin
+            if ($existingUser->role !== 'admin') {
+                $existingUser->update([
+                    'name' => $name,
+                    'password' => Hash::make($password),
+                    'role' => 'admin',
+                    'email_verified_at' => now(),
+                ]);
+
+                return response()->json([
+                    'message' => 'Existing user updated to admin successfully!',
+                    'admin' => [
+                        'name' => $existingUser->name,
+                        'email' => $existingUser->email,
+                        'role' => $existingUser->role
+                    ],
+                    'credentials' => [
+                        'email' => $email,
+                        'password' => $password
+                    ],
+                    'warning' => 'Please change the password after first login and REMOVE this route!'
+                ], 200);
+            } else {
+                // User exists and is already admin
+                return response()->json([
+                    'message' => 'User already exists and is admin',
+                    'admin' => [
+                        'name' => $existingUser->name,
+                        'email' => $existingUser->email,
+                        'role' => $existingUser->role
+                    ]
+                ], 409);
+            }
+        }
+
+        // Get credentials from request or use defaults
+        $name = $request->input('name', 'Admin User');
+        $email = $request->input('email', 'admin@example.com');
+        $password = $request->input('password', 'password');
+
         // Validate input
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return response()->json([
