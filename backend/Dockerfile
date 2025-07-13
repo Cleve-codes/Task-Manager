@@ -50,6 +50,8 @@ RUN echo '#!/bin/bash' > /start.sh && \
     echo 'fi' >> /start.sh && \
     echo 'php artisan config:clear' >> /start.sh && \
     echo 'php artisan cache:clear' >> /start.sh && \
+    echo 'php artisan route:clear' >> /start.sh && \
+    echo 'php artisan view:clear' >> /start.sh && \
     echo 'php artisan config:cache' >> /start.sh && \
     echo 'php artisan route:cache' >> /start.sh && \
     echo 'php artisan view:cache' >> /start.sh && \

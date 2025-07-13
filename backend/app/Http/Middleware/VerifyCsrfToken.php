@@ -13,5 +13,27 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'api/*',
+        '/api/*',
+        '*/api/*',
+        'login',
+        'register',
+        '/login',
+        '/register',
     ];
+
+    /**
+     * Determine if the request has a URI that should pass through CSRF verification.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function inExceptArray($request)
+    {
+        // Always exclude API routes
+        if (str_contains($request->path(), 'api/')) {
+            return true;
+        }
+
+        return parent::inExceptArray($request);
+    }
 }

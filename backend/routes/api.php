@@ -13,7 +13,8 @@ Route::get('/health', function () {
         'status' => 'ok',
         'timestamp' => now(),
         'app' => config('app.name'),
-        'version' => '1.0.0'
+        'version' => '1.0.1-csrf-fix',
+        'csrf_disabled' => true
     ]);
 });
 
