@@ -12,7 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Configure API middleware for token-based authentication
+        // Use custom CSRF middleware that excludes API routes
+        $middleware->web(replace: [
+            \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class => \App\Http\Middleware\VerifyCsrfToken::class,
+        ]);
+
+        // Remove CSRF from API middleware entirely
         $middleware->api(remove: [
             \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
         ]);
