@@ -1,6 +1,18 @@
-# Task Management System
+# 📋 Task Management System
 
-A full-stack task management application with Laravel backend and Vue.js frontend, featuring comprehensive email notifications, user preference management, role-based access control, and modern responsive design.
+> A modern, full-stack task management application built with Laravel 11 and Vue.js 3, featuring comprehensive email notifications, role-based access control, and responsive design.
+
+[![Laravel](https://img.shields.io/badge/Laravel-11.x-red.svg)](https://laravel.com)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.x-green.svg)](https://vuejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org)
+[![Vuetify](https://img.shields.io/badge/Vuetify-3.x-blue.svg)](https://vuetifyjs.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## 🌟 Live Demo
+
+- **🌐 Frontend**: [task-management-frontend.vercel.app](https://task-manager-lac-tau.vercel.app)
+- **📚 API Docs**: [API Documentation](https://task-manager-api-nwrn.onrender.com/api/documentation)
+- **📧 Email**: Powered by Mailgun with custom domain support
 
 ## 🚀 Features
 
@@ -88,55 +100,83 @@ A full-stack task management application with Laravel backend and Vue.js fronten
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
+### 📋 Prerequisites
+- **PHP** 8.2+ with extensions: PDO, OpenSSL, Mbstring, Tokenizer, XML, Ctype, JSON
+- **Node.js** 18+ and npm
+- **Composer** 2.x
+- **Git** for version control
+
+### 🔧 Installation
+
+#### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/Cleve-codes/Task-Manager.git
-cd Task-Manager
+git clone https://github.com/Cleve-codes/task-management.git
+cd task-management
 ```
 
-### 2. Backend Setup
+#### 2️⃣ Backend Setup (Laravel API)
 ```bash
 cd backend
+
+# Install dependencies
 composer install
+
+# Environment setup
 cp .env.example .env
 php artisan key:generate
+
+# Database setup
 php artisan migrate
 php artisan db:seed
+
+# Start development server
 php artisan serve
 ```
 
-### 3. Frontend Setup
+#### 3️⃣ Frontend Setup (Vue.js)
 ```bash
 cd frontend
+
+# Install dependencies
 npm install
+
+# Environment setup
 cp .env.example .env.local
+
+# Start development server
 npm run dev
 ```
 
-### 4. Email Configuration (Optional)
+#### 4️⃣ Email Configuration (Production)
 ```bash
 # Update backend/.env with your Mailgun credentials
 MAIL_MAILER=mailgun
-MAILGUN_DOMAIN=your-domain.com
+MAILGUN_DOMAIN=your-vercel-app.vercel.app
 MAILGUN_SECRET=your-mailgun-secret
-MAIL_FROM_ADDRESS=noreply@your-domain.com
+MAIL_FROM_ADDRESS=noreply@your-vercel-app.vercel.app
+MAIL_FROM_NAME="Task Management System"
 ```
 
-### 5. Access the Application
-- **Frontend**: http://localhost:5173
-- **Backend API**: http://127.0.0.1:8000/api
-- **Swagger Documentation**: http://127.0.0.1:8000/api/documentation
+### 🌐 Access Points
+| Service | URL | Description |
+|---------|-----|-------------|
+| **Frontend** | http://localhost:5173 | Vue.js application |
+| **Backend API** | http://127.0.0.1:8000/api | Laravel API |
+| **API Docs** | http://127.0.0.1:8000/api/documentation | Swagger UI |
+| **Health Check** | http://127.0.0.1:8000/api/health | API status |
 
-### 6. Default Login Credentials
-```
-Admin User:
+### 🔐 Default Credentials
+```bash
+# Admin User
 Email: admin@example.com
 Password: password
 
-Regular User:
-Email: clevemomanyi@gmail.com
+# Regular User
+Email: user@example.com
 Password: password
 ```
+
+> ⚠️ **Security Note**: Change default passwords immediately in production!
 
 ## 📚 API Documentation
 
@@ -228,7 +268,7 @@ MAIL_FROM_NAME="Task Management System"
 QUEUE_CONNECTION=database
 
 # Frontend URL (for email links)
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL=http://localhost:3000
 ```
 
 ### Frontend Environment Variables
@@ -251,70 +291,187 @@ The application uses SQLite by default. To use MySQL/PostgreSQL:
 4. **Update Environment**: Add Mailgun credentials to `.env`
 5. **Test Email**: Use the email preferences system to test
 
-## 🏗️ Project Structure
+## 🏗️ Project Architecture
 
+### 📁 Monorepo Structure
 ```
 task-management/
-├── backend/                     # Laravel API Backend
-│   ├── app/
-│   │   ├── Console/Commands/    # Artisan Commands (Task Reminders)
-│   │   ├── Events/              # Laravel Events (Task Events)
-│   │   ├── Http/
-│   │   │   ├── Controllers/     # API Controllers
-│   │   │   └── Requests/        # Form Request Validation
-│   │   ├── Models/              # Eloquent Models
-│   │   ├── Notifications/       # Email Notifications
-│   │   └── Policies/            # Authorization Policies
-│   ├── database/
-│   │   ├── migrations/          # Database Migrations
-│   │   └── seeders/             # Database Seeders
-│   ├── resources/views/emails/  # Email Templates
-│   ├── routes/api.php           # API Routes
-│   └── config/                  # Configuration Files
-├── frontend/                    # Vue.js 3 Frontend
-│   ├── src/
-│   │   ├── components/          # Vue Components
-│   │   │   ├── admin/           # Admin-specific Components
-│   │   │   ├── auth/            # Authentication Components
-│   │   │   ├── common/          # Shared Components
-│   │   │   └── user/            # User-specific Components
-│   │   ├── views/               # Page Components
-│   │   │   ├── Admin/           # Admin Pages
-│   │   │   ├── Auth/            # Authentication Pages
-│   │   │   └── User/            # User Pages
-│   │   ├── stores/              # Pinia State Management
-│   │   ├── services/            # API Services
-│   │   ├── router/              # Vue Router Configuration
-│   │   └── utils/               # Utility Functions
-│   ├── public/                  # Static Assets
-│   ├── vercel.json              # Vercel Deployment Config
-│   └── package.json             # Frontend Dependencies
-├── .gitignore                   # Git Ignore Rules
-└── README.md                    # Project Documentation
+├── 📂 backend/                  # Laravel 11 API Backend
+│   ├── 📂 app/
+│   │   ├── 📂 Console/Commands/ # Artisan Commands
+│   │   │   └── SendTaskReminders.php
+│   │   ├── 📂 Http/Controllers/ # API Controllers
+│   │   │   ├── AuthController.php
+│   │   │   ├── TaskController.php
+│   │   │   ├── UserController.php
+│   │   │   └── EmailPreferencesController.php
+│   │   ├── 📂 Models/           # Eloquent Models
+│   │   │   ├── User.php
+│   │   │   └── Task.php
+│   │   ├── 📂 Notifications/    # Email Notifications
+│   │   │   ├── WelcomeNotification.php
+│   │   │   ├── TaskAssignedNotification.php
+│   │   │   ├── TaskUpdatedNotification.php
+│   │   │   └── TaskReminderNotification.php
+│   │   └── 📂 Enums/           # Application Enums
+│   │       ├── UserRole.php
+│   │       └── TaskStatus.php
+│   ├── 📂 database/
+│   │   ├── 📂 migrations/       # Database Schema
+│   │   ├── 📂 seeders/          # Sample Data
+│   │   └── 📂 factories/        # Model Factories
+│   ├── 📂 resources/views/emails/ # Email Templates
+│   │   ├── welcome.blade.php
+│   │   ├── task-assigned.blade.php
+│   │   ├── task-updated.blade.php
+│   │   └── task-reminder.blade.php
+│   ├── 📂 routes/
+│   │   ├── api.php              # API Routes
+│   │   └── auth.php             # Auth Routes
+│   ├── 📂 config/               # Configuration
+│   ├── 📄 Dockerfile            # Docker Configuration
+│   ├── 📄 composer.json         # PHP Dependencies
+│   └── 📄 postman_collection.json # API Testing
+│
+├── 📂 frontend/                 # Vue.js 3 Frontend
+│   ├── 📂 src/
+│   │   ├── 📂 components/       # Reusable Components
+│   │   │   ├── 📂 admin/        # Admin Components
+│   │   │   ├── 📂 auth/         # Auth Components
+│   │   │   ├── 📂 common/       # Shared Components
+│   │   │   └── 📂 user/         # User Components
+│   │   ├── 📂 views/            # Page Components
+│   │   │   ├── 📂 Admin/        # Admin Pages
+│   │   │   ├── 📂 Auth/         # Auth Pages
+│   │   │   └── 📂 User/         # User Pages
+│   │   ├── 📂 stores/           # Pinia State Management
+│   │   │   ├── auth.ts
+│   │   │   ├── tasks.ts
+│   │   │   └── theme.ts
+│   │   ├── 📂 services/         # API Services
+│   │   │   ├── api.ts
+│   │   │   ├── auth.ts
+│   │   │   └── tasks.ts
+│   │   ├── 📂 router/           # Vue Router
+│   │   ├── 📂 utils/            # Utilities
+│   │   └── 📂 types/            # TypeScript Types
+│   ├── 📂 public/               # Static Assets
+│   ├── 📄 vercel.json           # Vercel Config
+│   ├── 📄 package.json          # Dependencies
+│   └── 📄 tsconfig.json         # TypeScript Config
+│
+├── 📄 README.md                 # This file
+├── 📄 .gitignore               # Git ignore rules
 ```
 
-## 🚀 Deployment
+### 🔄 Data Flow Architecture
+```mermaid
+graph TB
+    A[Vue.js Frontend] -->|HTTP Requests| B[Laravel API]
+    B -->|Sanctum Auth| C[Protected Routes]
+    C -->|Eloquent ORM| D[PostgreSQL Database]
+    B -->|Queue Jobs| E[Email Notifications]
+    E -->|Mailgun API| F[Email Delivery]
+    B -->|File Storage| G[Local/Cloud Storage]
+```
 
-### Frontend Deployment (Vercel)
+## 🚀 Deployment Guide
+
+### 🌐 Frontend Deployment (Vercel)
+
+#### Automatic Deployment
 ```bash
 cd frontend
+
+# Install Vercel CLI
 npm install -g vercel
+
+# Deploy to Vercel
 vercel
+
+# Follow prompts:
+# - Link to existing project or create new
+# - Set build command: npm run build
+# - Set output directory: dist
 ```
 
-Follow the prompts to deploy to Vercel. The `vercel.json` configuration is already set up.
+#### Manual Deployment
+1. **Build the project**: `npm run build`
+2. **Upload `dist/` folder** to your hosting provider
+3. **Configure environment variables** in hosting dashboard
 
-### Backend Deployment
-The Laravel backend can be deployed to various platforms:
-- **Shared Hosting**: Upload files and configure virtual host
-- **VPS/Cloud**: Use services like DigitalOcean, AWS, or Linode
-- **Platform as a Service**: Deploy to Heroku, Railway, or similar
+#### Environment Variables (Vercel)
+```bash
+VITE_API_BASE_URL=https://your-api.onrender.com/api
+VITE_APP_NAME=Task Management System
+```
 
-### Email Domain Setup
-1. Deploy frontend to get your Vercel domain (e.g., `your-app.vercel.app`)
-2. Add the domain to Mailgun
-3. Configure DNS records for email authentication
-4. Update backend `.env` with your domain
+### 🖥️ Backend Deployment
+
+#### Option 1: Render (Recommended)
+```bash
+# 1. Connect GitHub repository to Render
+# 2. Create new Web Service
+# 3. Configure build settings:
+#    - Build Command: composer install --no-dev
+#    - Start Command: php artisan serve --host=0.0.0.0 --port=$PORT
+```
+
+#### Option 2: Railway
+```bash
+# 1. Connect GitHub repository to Railway
+# 2. Add PostgreSQL database
+# 3. Configure environment variables
+# 4. Deploy automatically on push
+```
+
+#### Option 3: Docker Deployment
+```bash
+cd backend
+
+# Build Docker image
+docker build -t task-management-api .
+
+# Run container
+docker run -p 8000:8000 task-management-api
+```
+
+### 📧 Email Domain Setup
+
+#### Step 1: Get Your Vercel Domain
+After deploying frontend, you'll get a URL like: `your-app.vercel.app`
+
+#### Step 2: Configure Mailgun
+1. **Add Domain** to Mailgun dashboard
+2. **Get DNS Records** (SPF, DKIM, DMARC)
+3. **Add Records** to your domain DNS settings
+4. **Verify Domain** in Mailgun
+
+#### Step 3: Update Environment Variables
+```bash
+# In your backend hosting platform (Render/Railway)
+MAILGUN_DOMAIN=your-app.vercel.app
+MAIL_FROM_ADDRESS=noreply@your-app.vercel.app
+FRONTEND_URL=https://your-app.vercel.app
+```
+
+### 🔄 CI/CD Pipeline
+
+#### GitHub Actions (Optional)
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+```
 
 ## 🎯 Key Features Showcase
 
@@ -392,12 +549,6 @@ php artisan tinker
 - Update documentation for API changes
 - Ensure TypeScript types are properly defined
 
-## 📄 License
-
-This project is open-sourced software licensed under the [MIT license](LICENSE).
-
-## � Screenshots & Demo
-
 ### Dashboard Views
 - **User Dashboard**: Clean interface showing assigned tasks
 - **Admin Dashboard**: Comprehensive overview with statistics
@@ -414,47 +565,72 @@ This project is open-sourced software licensed under the [MIT license](LICENSE).
 - **API Documentation**: Available after backend deployment
 - **Test Credentials**: Use the default credentials provided above
 
-## 🔄 Version History
+## � Current Deployment Status
 
-### v2.0.0 (Current)
-- ✅ Complete Vue.js 3 frontend application
-- ✅ Email preferences management system
-- ✅ Comprehensive notification system
-- ✅ Modern responsive design
-- ✅ TypeScript support
-- ✅ Vercel deployment configuration
+### 🌐 Production Environment
+| Service | Status | URL | Notes |
+|---------|--------|-----|-------|
+| **Frontend** | ✅ Deployed | [Vercel](https://task-manager-lac-tau.vercel.app) | Vue.js 3 + Vuetify |
+| **Backend API** | ✅ Deployed | [Render](https://task-manager-api-nwrn.onrender.com) | Laravel 11 + PostgreSQL |
+| **Database** | ✅ Active | Render PostgreSQL | Managed database |
+| **Email Service** | ✅ Configured | Mailgun | Custom domain ready |
+| **API Docs** | ✅ Available | [Swagger UI](https://task-manager-api-nwrn.onrender.com/api/documentation) | Interactive docs |
 
-### v1.0.0
-- ✅ Laravel API backend
-- ✅ Basic task management
-- ✅ User authentication
-- ✅ Role-based access control
-- ✅ Swagger documentation
+### 🔧 Configuration Status
+- ✅ **Authentication**: Laravel Sanctum with API tokens
+- ✅ **Email Notifications**: Mailgun integration with custom domain support
+- ✅ **Queue System**: Database queues for background jobs
+- ✅ **File Storage**: Local storage (ready for cloud upgrade)
+- ✅ **CORS**: Configured for frontend-backend communication
+- ✅ **Environment**: Production-ready configuration
 
-## 🎯 Roadmap
+## 🔄 Version History & Changelog
 
-### Upcoming Features
-- [ ] Real-time notifications with WebSockets
-- [ ] File attachments for tasks
-- [ ] Task comments and collaboration
-- [ ] Advanced reporting and analytics
-- [ ] Mobile app (React Native)
-- [ ] Integration with calendar applications
-- [ ] Bulk task operations
-- [ ] Custom task templates
+### v2.1.0 (Current - Production Ready)
+- ✅ **Full Production Deployment**: Both frontend and backend deployed
+- ✅ **Email System**: Complete notification system with Mailgun
+- ✅ **Custom Domain Support**: Ready for professional email delivery
+- ✅ **Database Migration**: PostgreSQL in production
+- ✅ **Security Hardening**: Production environment variables
+- ✅ **Performance Optimization**: Queue system for email processing
+- ✅ **API Documentation**: Complete Swagger documentation
+- ✅ **Monitoring**: Health check endpoints
 
-### Performance Improvements
-- [ ] Redis caching implementation
-- [ ] Database query optimization
-- [ ] CDN integration for static assets
-- [ ] Progressive Web App (PWA) features
+### v2.0.0 (Feature Complete)
+- ✅ **Vue.js 3 Frontend**: Complete responsive application
+- ✅ **Email Preferences**: User-controlled notification settings
+- ✅ **TypeScript Integration**: Full type safety
+- ✅ **Modern UI/UX**: Vuetify 3 with dark/light themes
+- ✅ **State Management**: Pinia for reactive state
+- ✅ **Form Validation**: VeeValidate integration
 
-## �👨‍💻 Author
+### v1.0.0 (MVP)
+- ✅ **Laravel API Backend**: RESTful API with authentication
+- ✅ **Task Management**: CRUD operations for tasks
+- ✅ **User Authentication**: Registration and login
+- ✅ **Role-Based Access**: Admin and user permissions
+- ✅ **Database Design**: Normalized schema with relationships
 
-**Cleve Momanyi**
-- Email: clevemomanyi@gmail.com
-- GitHub: [@Cleve-codes](https://github.com/Cleve-codes)
-- LinkedIn: [Connect with me](https://linkedin.com/in/cleve-momanyi)
+
+## 👨‍💻 Author & Maintainer
+
+<div align="center">
+
+### **Cleve Momanyi**
+*Full-Stack Developer & Software Engineer*
+
+[![GitHub](https://img.shields.io/badge/GitHub-@Cleve--codes-black?style=for-the-badge&logo=github)](https://github.com/Cleve-codes)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/cleve-momanyi)
+[![Email](https://img.shields.io/badge/Email-clevemomanyi@gmail.com-red?style=for-the-badge&logo=gmail)](mailto:clevemomanyi@gmail.com)
+
+</div>
+
+### 🛠️ Built With Passion
+This project represents a comprehensive full-stack application showcasing:
+- **Modern Web Technologies**: Laravel 11, Vue.js 3, TypeScript
+- **Production-Ready Features**: Email notifications, role-based access, responsive design
+- **DevOps Best Practices**: Docker, CI/CD, cloud deployment
+- **Professional Development**: Clean code, testing, documentation
 
 ## 🙏 Acknowledgments
 
@@ -474,9 +650,4 @@ This project is open-sourced software licensed under the [MIT license](LICENSE).
 ### Development Tools
 - **Vercel** - Frontend hosting and deployment
 - **GitHub** - Version control and collaboration
-- **Conventional Commits** - Commit message standards
 
-### Special Thanks
-- All contributors and testers
-- The open-source community
-- Laravel and Vue.js communities
