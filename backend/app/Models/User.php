@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'email_preferences',
     ];
 
     /**
@@ -49,6 +50,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'email_preferences' => 'array',
         ];
     }
 
@@ -56,5 +58,25 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class, 'assigned_to');
+    }
+
+    // Email preference methods
+    public function getEmailPreference(string $type): bool
+    {
+        $preferences = $this->email_preferences ?? [];
+        return $preferences[$type] ?? true;
+    }
+
+    public function setEmailPreference(string $type, bool $enabled): void
+    {
+        $preferences = $this->email_preferences ?? [];
+        $preferences[$type] = $enabled;
+        $this->email_preferences = $preferences;
+        $this->save();
+    }
+
+    public function canReceiveEmail(string $type): bool
+    {
+        return $this->getEmailPreference($type) && $this->email;
     }
 }
