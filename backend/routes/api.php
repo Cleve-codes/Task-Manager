@@ -17,6 +17,43 @@ Route::get('/health', function () {
     ]);
 });
 
+// TEMPORARY EMAIL TEST ROUTE - REMOVE AFTER TESTING
+Route::post('/test-email', function (Request $request) {
+    try {
+        $email = $request->input('email', 'test@example.com');
+
+        // Test basic mail sending
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from your Task Management System.', function ($message) use ($email) {
+            $message->to($email)
+                    ->subject('Test Email from Task Management System')
+                    ->from(config('mail.from.address'), config('mail.from.name'));
+        });
+
+        return response()->json([
+            'message' => 'Test email sent successfully!',
+            'email' => $email,
+            'mail_config' => [
+                'mailer' => config('mail.default'),
+                'from_address' => config('mail.from.address'),
+                'from_name' => config('mail.from.name'),
+                'queue_connection' => config('queue.default')
+            ]
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Failed to send test email',
+            'message' => $e->getMessage(),
+            'mail_config' => [
+                'mailer' => config('mail.default'),
+                'from_address' => config('mail.from.address'),
+                'from_name' => config('mail.from.name'),
+                'queue_connection' => config('queue.default')
+            ]
+        ], 500);
+    }
+});
+
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
