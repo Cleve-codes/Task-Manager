@@ -17,6 +17,20 @@ Route::get('/health', function () {
     ]);
 });
 
+// Test route for API functionality
+Route::get('/test', function () {
+    return response()->json([
+        'message' => 'API is working correctly!',
+        'csrf_disabled' => 'CSRF protection is disabled for API routes',
+        'timestamp' => now(),
+        'test_endpoints' => [
+            'POST /api/register' => 'Create new user account',
+            'POST /api/login' => 'Login with email/password',
+            'GET /api/user' => 'Get current user (requires auth)',
+        ]
+    ]);
+});
+
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
