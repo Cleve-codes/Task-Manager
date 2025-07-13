@@ -141,7 +141,7 @@ This project is open-sourced software licensed under the [MIT license](LICENSE).
 
 **Cleve Momanyi**
 - Email: clevemomanyi@gmail.com
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@Cleve-codes](https://github.com/Cleve-codes)
 
 ## 🙏 Acknowledgments
 
