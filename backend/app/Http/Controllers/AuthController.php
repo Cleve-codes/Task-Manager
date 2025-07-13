@@ -151,7 +151,7 @@ class AuthController extends Controller
         ]);
 
         // Verify current password
-        if (!Hash::check($validated['current_password'], $user->password)) {
+        if (!Hash::check((string) $validated['current_password'], (string) $user->password)) {
             return response()->json([
                 'message' => 'The given data was invalid.',
                 'errors' => [
