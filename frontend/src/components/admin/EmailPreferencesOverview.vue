@@ -255,17 +255,19 @@ const refreshData = () => {
   loadData()
 }
 
-const updateUserPreference = async (userId: number, preference: keyof EmailPreferencesUpdate, value: boolean) => {
+const updateUserPreference = async (userId: number, preference: keyof EmailPreferencesUpdate, value: boolean | null) => {
+  // Convert null to false for safety
+  const booleanValue = value ?? false
   try {
     updatingUsers.value.add(userId)
-    
-    const updates: EmailPreferencesUpdate = { [preference]: value }
+
+    const updates: EmailPreferencesUpdate = { [preference]: booleanValue }
     await apiService.updateUserEmailPreferences(userId, updates)
-    
+
     // Update local data
     const user = users.value.find(u => u.id === userId)
     if (user) {
-      user.preferences[preference] = value
+      user.preferences[preference] = booleanValue
     }
     
     // Refresh statistics
