@@ -26,7 +26,7 @@ class StoreTaskRequest extends FormRequest
             'description' => 'nullable|string|max:1000',
             'status' => 'required|in:Pending,In Progress,Completed',
             'assigned_to' => 'required|exists:users,id',
-            'deadline' => 'nullable|date|after:now',
+            'deadline' => 'nullable|date|after_or_equal:today',
         ];
     }
 
@@ -38,7 +38,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title.required' => 'Task title is required',
             'assigned_to.exists' => 'The selected user does not exist',
-            'deadline.after' => 'Deadline must be a future date',
+            'deadline.after_or_equal' => 'Deadline cannot be in the past',
             'status.in' => 'Status must be one of: Pending, In Progress, Completed',
         ];
     }

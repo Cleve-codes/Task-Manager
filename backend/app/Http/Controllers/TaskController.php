@@ -7,9 +7,9 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Traits\ApiResponse;
 use App\Models\Task;
 use App\Models\User;
-use App\Mail\TaskAssignedMail;
+use App\Notifications\TaskAssignedNotification;
+use App\Notifications\TaskUpdatedNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -97,7 +97,7 @@ class TaskController extends Controller
         // Send email notification
         $user = User::find($validated['assigned_to']);
         if ($user) {
-            Mail::to($user->email)->send(new TaskAssignedMail($task));
+            $user->notify(new TaskAssignedNotification($task));
         }
 
         return $this->successResponse($task, 'Task created and assigned successfully', 201);
@@ -215,10 +215,32 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $validated = $request->validated();
+
+        // Store original values for change detection
+        $originalValues = $task->only(array_keys($validated));
+
         $task->update($validated);
 
         // Load the relationship for response
         $task->load('user');
+
+        // Send email notification if task was updated
+        if ($task->user) {
+            // Calculate what changed
+            $changes = [];
+            foreach ($validated as $key => $newValue) {
+                if ($originalValues[$key] != $newValue) {
+                    $changes[$key] = [
+                        'old' => $originalValues[$key],
+                        'new' => $newValue
+                    ];
+                }
+            }
+
+            if (!empty($changes)) {
+                $task->user->notify(new TaskUpdatedNotification($task, $changes));
+            }
+        }
 
         return $this->successResponse($task, 'Task updated successfully');
     }
