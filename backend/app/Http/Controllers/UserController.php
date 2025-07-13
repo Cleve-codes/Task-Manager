@@ -119,6 +119,8 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * Note: Password updates are not allowed for security reasons.
+     * Users must update their own passwords through the profile endpoint.
      */
     public function update(Request $request, string $id)
     {
@@ -129,12 +131,9 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'email' => ['sometimes','required','email',Rule::unique('users')->ignore($user->id)],
-            'password' => 'sometimes|nullable|string|min:6',
             'role' => ['sometimes', Rule::in(['admin', 'user'])],
         ]);
-        if(isset($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        }
+
         $user->update($validated);
         return response()->json($user);
     }
