@@ -1,5 +1,5 @@
 <template>
-  <v-app :theme="themeStore.currentTheme">
+  <v-app>
     <!-- Header -->
     <Header
       v-if="authStore.isAuthenticated"
@@ -20,8 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { RouterView } from 'vue-router'
+import { useTheme } from 'vuetify'
 import { useAuthStore } from '@/stores/auth'
 import { useThemeStore } from '@/stores/theme'
 import Header from '@/components/common/Header.vue'
@@ -31,13 +32,23 @@ import Sidebar from '@/components/common/Sidebar.vue'
 const authStore = useAuthStore()
 const themeStore = useThemeStore()
 
+// Vuetify theme
+const theme = useTheme()
+
 // State
 const sidebarOpen = ref(true)
+
+// Watch theme store and update Vuetify theme
+watch(() => themeStore.currentTheme, (newTheme) => {
+  theme.global.name.value = newTheme
+}, { immediate: true })
 
 // Initialize auth and theme on app start
 onMounted(async () => {
   await authStore.initializeAuth()
   themeStore.initializeTheme()
+  // Ensure Vuetify theme is synced
+  theme.global.name.value = themeStore.currentTheme
 })
 </script>
 
@@ -119,16 +130,13 @@ html, body {
 }
 
 /* Theme-specific enhancements */
-.v-theme--dark .v-card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
 .v-theme--light .v-card {
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .v-theme--dark .v-card {
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 

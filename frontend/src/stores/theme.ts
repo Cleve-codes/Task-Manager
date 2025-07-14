@@ -5,25 +5,15 @@ export const useThemeStore = defineStore('theme', () => {
   // State
   const isDark = ref(false)
 
-  // Initialize theme from localStorage or system preference
+  // Initialize theme from localStorage or default to light
   const initializeTheme = () => {
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) {
       isDark.value = savedTheme === 'dark'
     } else {
-      // Check system preference
-      isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-    }
-
-    // Listen for system theme changes (only if no saved preference)
-    if (!savedTheme) {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      mediaQuery.addEventListener('change', (e) => {
-        // Only update if user hasn't set a preference
-        if (!localStorage.getItem('theme')) {
-          isDark.value = e.matches
-        }
-      })
+      // Default to light theme to avoid conflicts
+      isDark.value = false
+      localStorage.setItem('theme', 'light')
     }
   }
 
@@ -42,8 +32,9 @@ export const useThemeStore = defineStore('theme', () => {
   }
 
   const resetToSystemTheme = () => {
-    localStorage.removeItem('theme')
-    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+    // Default to light theme for consistency
+    localStorage.setItem('theme', 'light')
+    isDark.value = false
   }
 
   return {
