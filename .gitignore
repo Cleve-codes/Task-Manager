@@ -75,11 +75,8 @@ pids
 *.seed
 *.pid.lock
 
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
+# npm cache
+.npm/
 
 # Output of 'npm pack'
 *.tgz
@@ -110,23 +107,19 @@ Icon?
 /backend/npm-debug.log
 /backend/yarn-error.log
 
-# Frontend Build Files (if applicable)
+# Frontend Build Files
 /frontend/dist/
 /frontend/build/
-/frontend/.next/
-/frontend/out/
 
-# Package Lock Files (choose one strategy)
-# Uncomment the next line if you want to ignore lock files
-# package-lock.json
-# yarn.lock
-# composer.lock
 
 # Development and Test Files
 /backend/test-*.php
 /backend/setup-*.php
 test-*.php
 setup-*.php
+
+# Database Dumps
+task_management_database_dump.sql
 
 # Documentation (keep in root)
 # EMAIL_PREFERENCES_GUIDE.md is intentionally tracked

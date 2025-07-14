@@ -13,6 +13,11 @@ namespace App\Http\Controllers;
  * )
  *
  * @OA\Server(
+ *     url="https://task-manager-api-nwrn.onrender.com",
+ *     description="Live Server"
+ * )
+ *
+ * @OA\Server(
  *     url="http://127.0.0.1:8000",
  *     description="Local Development Server"
  * )
