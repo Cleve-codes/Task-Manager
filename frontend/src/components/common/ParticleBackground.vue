@@ -107,7 +107,7 @@ const particleOptions = ref({
 
 // Callback when particles are loaded
 const particlesLoaded = async (container: any) => {
-  console.log('Particles container loaded', container)
+  // Particles container loaded successfully
 }
 </script>
 

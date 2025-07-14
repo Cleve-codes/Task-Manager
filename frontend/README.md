@@ -1,39 +1,90 @@
-# .
+# Task Management System - Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue.js 3 frontend application for the Task Management System with TypeScript, Vuetify, and modern development tools.
 
-## Recommended IDE Setup
+## 🚀 Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Vue.js 3** with Composition API
+- **TypeScript** for type safety
+- **Vuetify 3** for Material Design components
+- **Pinia** for state management
+- **Vue Router** for navigation
+- **VeeValidate** for form validation
+- **Axios** for API communication
+- **Dark/Light Theme** support
+- **Responsive Design** for all devices
 
-## Type Support for `.vue` Imports in TS
+## 📋 Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Node.js 18+ and npm
+- Backend API running on http://localhost:8000
 
-## Customize configuration
+## 🔧 Installation
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
+# Install dependencies
 npm install
+
+# Copy environment file
+cp .env.example .env.local
+
+# Update .env.local with your API URL if different
+# VITE_API_BASE_URL=http://localhost:8000/api
 ```
 
-### Compile and Hot-Reload for Development
+## 🏃‍♂️ Development
 
-```sh
+```bash
+# Start development server
 npm run dev
+
+# The app will be available at http://localhost:3000
 ```
 
-### Type-Check, Compile and Minify for Production
+## 🏗️ Build
 
-```sh
+```bash
+# Type check
+npm run type-check
+
+# Build for production
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 🧹 Code Quality
 
-```sh
+```bash
+# Lint and fix code
 npm run lint
 ```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable Vue components
+│   ├── admin/          # Admin-specific components
+│   ├── auth/           # Authentication components
+│   ├── common/         # Shared components
+│   └── user/           # User-specific components
+├── views/              # Page components
+├── stores/             # Pinia state management
+├── services/           # API services
+├── router/             # Vue Router configuration
+├── utils/              # Utility functions
+└── types/              # TypeScript type definitions
+```
+
+## 🌐 Deployment
+
+The app is configured for Vercel deployment with automatic builds from the main branch.
+
+## 🔧 Configuration
+
+Environment variables in `.env.local`:
+- `VITE_API_BASE_URL`: Backend API URL
+- `VITE_APP_NAME`: Application name
+- `VITE_APP_VERSION`: Application version

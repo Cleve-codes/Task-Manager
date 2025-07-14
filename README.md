@@ -160,7 +160,7 @@ MAIL_FROM_NAME="Task Management System"
 ### 🌐 Access Points
 | Service | URL | Description |
 |---------|-----|-------------|
-| **Frontend** | http://localhost:5173 | Vue.js application |
+| **Frontend** | http://localhost:3000 | Vue.js application |
 | **Backend API** | http://127.0.0.1:8000/api | Laravel API |
 | **API Docs** | http://127.0.0.1:8000/api/documentation | Swagger UI |
 | **Health Check** | http://127.0.0.1:8000/api/health | API status |
@@ -535,13 +535,6 @@ php artisan tinker
 - **Database**: Add indexes for frequently queried columns
 - **Email**: Use queue workers for background email processing
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'feat: add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
 
 ### Development Guidelines
 - Follow conventional commit messages
@@ -561,8 +554,8 @@ php artisan tinker
 - **Accessibility**: Keyboard navigation and screen reader support
 
 ### Live Demo
-- **Frontend Demo**: [Coming Soon - Deploy to Vercel]
-- **API Documentation**: Available after backend deployment
+- **Frontend Demo**: [task-manager-lac-tau.vercel.app](https://task-manager-lac-tau.vercel.app)
+- **API Documentation**: [API Documentation](https://task-manager-api-nwrn.onrender.com/api/documentation)
 - **Test Credentials**: Use the default credentials provided above
 
 ## � Current Deployment Status
@@ -649,5 +642,6 @@ This project represents a comprehensive full-stack application showcasing:
 
 ### Development Tools
 - **Vercel** - Frontend hosting and deployment
+- **Render** - Backend hosting and deployment
 - **GitHub** - Version control and collaboration
 
