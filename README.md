@@ -110,8 +110,8 @@
 
 #### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/Cleve-codes/task-management.git
-cd task-management
+git clone https://github.com/Cleve-codes/task-manager.git
+cd task-manager
 ```
 
 #### 2️⃣ Backend Setup (Laravel API)
@@ -295,7 +295,7 @@ The application uses SQLite by default. To use MySQL/PostgreSQL:
 
 ### 📁 Monorepo Structure
 ```
-task-management/
+task-manager/
 ├── 📂 backend/                  # Laravel 11 API Backend
 │   ├── 📂 app/
 │   │   ├── 📂 Console/Commands/ # Artisan Commands
@@ -554,7 +554,7 @@ php artisan tinker
 - **Accessibility**: Keyboard navigation and screen reader support
 
 ### Live Demo
-- **Frontend Demo**: [task-manager-lac-tau.vercel.app](https://task-manager-lac-tau.vercel.app)
+- **Frontend Demo**: [Live Demo](https://task-manager-lac-tau.vercel.app)
 - **API Documentation**: [API Documentation](https://task-manager-api-nwrn.onrender.com/api/documentation)
 - **Test Credentials**: Use the default credentials provided above
 
