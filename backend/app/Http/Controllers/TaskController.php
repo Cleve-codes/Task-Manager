@@ -11,6 +11,7 @@ use App\Notifications\TaskAssignedNotification;
 use App\Notifications\TaskUpdatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -102,7 +103,7 @@ class TaskController extends Controller
             }
         } catch (\Exception $e) {
             // Log the email error but don't fail the task creation
-            \Log::error('Failed to send task assignment email', [
+            Log::error('Failed to send task assignment email', [
                 'task_id' => $task->id,
                 'user_id' => $validated['assigned_to'],
                 'error' => $e->getMessage()
@@ -253,7 +254,7 @@ class TaskController extends Controller
             }
         } catch (\Exception $e) {
             // Log the email error but don't fail the task update
-            \Log::error('Failed to send task update email', [
+            Log::error('Failed to send task update email', [
                 'task_id' => $task->id,
                 'user_id' => $task->assigned_to,
                 'error' => $e->getMessage()
