@@ -94,10 +94,19 @@ class TaskController extends Controller
         // Load the relationship for response
         $task->load('user');
 
-        // Send email notification
-        $user = User::find($validated['assigned_to']);
-        if ($user) {
-            $user->notify(new TaskAssignedNotification($task));
+        // Send email notification with error handling
+        try {
+            $user = User::find($validated['assigned_to']);
+            if ($user) {
+                $user->notify(new TaskAssignedNotification($task));
+            }
+        } catch (\Exception $e) {
+            // Log the email error but don't fail the task creation
+            \Log::error('Failed to send task assignment email', [
+                'task_id' => $task->id,
+                'user_id' => $validated['assigned_to'],
+                'error' => $e->getMessage()
+            ]);
         }
 
         return $this->successResponse($task, 'Task created and assigned successfully', 201);
@@ -225,21 +234,30 @@ class TaskController extends Controller
         $task->load('user');
 
         // Send email notification if task was updated
-        if ($task->user) {
-            // Calculate what changed
-            $changes = [];
-            foreach ($validated as $key => $newValue) {
-                if ($originalValues[$key] != $newValue) {
-                    $changes[$key] = [
-                        'old' => $originalValues[$key],
-                        'new' => $newValue
-                    ];
+        try {
+            if ($task->user) {
+                // Calculate what changed
+                $changes = [];
+                foreach ($validated as $key => $newValue) {
+                    if ($originalValues[$key] != $newValue) {
+                        $changes[$key] = [
+                            'old' => $originalValues[$key],
+                            'new' => $newValue
+                        ];
+                    }
+                }
+
+                if (!empty($changes)) {
+                    $task->user->notify(new TaskUpdatedNotification($task, $changes));
                 }
             }
-
-            if (!empty($changes)) {
-                $task->user->notify(new TaskUpdatedNotification($task, $changes));
-            }
+        } catch (\Exception $e) {
+            // Log the email error but don't fail the task update
+            \Log::error('Failed to send task update email', [
+                'task_id' => $task->id,
+                'user_id' => $task->assigned_to,
+                'error' => $e->getMessage()
+            ]);
         }
 
         return $this->successResponse($task, 'Task updated successfully');

@@ -20,8 +20,8 @@
 
         <div class="task-meta">
             <div>
-                <span class="task-status status-{{ strtolower(str_replace('_', '-', $task->status->value)) }}">
-                    {{ $task->status->value }}
+                <span class="task-status status-{{ strtolower(str_replace([' ', '_'], '-', $task->status->value ?? $task->status)) }}">
+                    {{ $task->status->value ?? $task->status }}
                 </span>
             </div>
             @if($task->deadline)
@@ -55,7 +55,7 @@
     <p>Click the button below to view the task details and start working on it.</p>
 
     <div style="text-align: center; margin: 30px 0;">
-        <a href="{{ config('app.frontend_url', config('app.url')) }}/tasks/{{ $task->id }}" class="btn">
+        <a href="{{ env('FRONTEND_URL', 'https://task-manager-lac-tau.vercel.app') }}/tasks/{{ $task->id }}" class="btn">
             View Task
         </a>
     </div>

@@ -20,8 +20,8 @@
 
         <div class="task-meta">
             <div>
-                <span class="task-status status-{{ strtolower(str_replace('_', '-', $task->status->value)) }}">
-                    {{ $task->status->value }}
+                <span class="task-status status-{{ strtolower(str_replace([' ', '_'], '-', $task->status->value ?? $task->status)) }}">
+                    {{ $task->status->value ?? $task->status }}
                 </span>
             </div>
             @if($task->deadline)
