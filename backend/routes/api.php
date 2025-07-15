@@ -17,6 +17,17 @@ Route::get('/health', function () {
     ]);
 });
 
+// Debug route to check queue configuration (temporary)
+Route::get('/debug/config', function () {
+    return response()->json([
+        'queue_connection' => config('queue.default'),
+        'mail_mailer' => config('mail.default'),
+        'app_env' => config('app.env'),
+        'mailgun_domain' => config('services.mailgun.domain'),
+        'mailgun_endpoint' => config('services.mailgun.endpoint'),
+    ]);
+});
+
 
 
 
