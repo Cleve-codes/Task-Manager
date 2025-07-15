@@ -55,7 +55,7 @@
     <p>Click the button below to view the task details and start working on it.</p>
 
     <div style="text-align: center; margin: 30px 0;">
-        <a href="{{ env('FRONTEND_URL', 'https://task-manager-lac-tau.vercel.app') }}/tasks/{{ $task->id }}" class="btn">
+        <a href="{{ env('FRONTEND_URL', 'https://task-manager-lac-tau.vercel.app') }}/login" class="btn">
             View Task
         </a>
     </div>

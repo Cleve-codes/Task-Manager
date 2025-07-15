@@ -73,7 +73,7 @@
     <p>Click the button below to view the updated task details.</p>
 
     <div style="text-align: center; margin: 30px 0;">
-        <a href="{{ config('app.frontend_url', config('app.url')) }}/tasks/{{ $task->id }}" class="btn">
+        <a href="{{ config('app.frontend_url', config('app.url')) }}/login" class="btn">
             View Task
         </a>
     </div>
